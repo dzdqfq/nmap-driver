@@ -35,7 +35,6 @@ def main():
     servicer = NmapService()
     # 注册本地服务,方法ComputeServicer只有这个是变的
     ipam_pb2_grpc.add_NmapServiceServicer_to_server(servicer, server)
-    port = getPort()
     # 监听端口
     server.add_insecure_port('[::]:'+str(getPort()))
     # 开始接收请求进行服务
