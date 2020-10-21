@@ -37,7 +37,7 @@ def main():
     ipam_pb2_grpc.add_NmapServiceServicer_to_server(servicer, server)
     port = getPort()
     # 监听端口
-    server.add_insecure_port('[::]:19999')
+    server.add_insecure_port('[::]:'+str(getPort()))
     # 开始接收请求进行服务
     server.start()
     # 使用 ctrl+c 可以退出服务
