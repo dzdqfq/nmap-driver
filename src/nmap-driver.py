@@ -1,6 +1,8 @@
 import time
 import grpc
 import nmap
+import configparser
+import os
 from concurrent import futures
 from ipdb import set_trace
 import ipam_pb2,ipam_pb2_grpc # 刚刚生产的两个文件
@@ -33,6 +35,7 @@ def main():
     servicer = NmapService()
     # 注册本地服务,方法ComputeServicer只有这个是变的
     ipam_pb2_grpc.add_NmapServiceServicer_to_server(servicer, server)
+    port = getPort()
     # 监听端口
     server.add_insecure_port('[::]:19999')
     # 开始接收请求进行服务
@@ -44,6 +47,13 @@ def main():
     except KeyboardInterrupt:
         print("stopping...")
         server.stop(0)
+
+def getPort():
+    root_dir = os.path.dirname(os.path.abspath('.'))  # 获取当前文件所在目录的上一级目录
+    cf = configparser.ConfigParser()
+    cf.read(root_dir+"/config"+"/config.ini") 
+    port = cf.get("Nmap-Driver", "port")
+    return port
 
 
 if __name__ == '__main__':

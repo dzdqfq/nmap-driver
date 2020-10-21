@@ -15,7 +15,7 @@ class NmapServiceStub(object):
             channel: A grpc.Channel.
         """
         self.ipScan = channel.unary_unary(
-                '/NmapService/ipScan',
+                '/ipam.NmapService/ipScan',
                 request_serializer=ipam__pb2.IpRequest.SerializeToString,
                 response_deserializer=ipam__pb2.IpResponse.FromString,
                 )
@@ -40,7 +40,7 @@ def add_NmapServiceServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'NmapService', rpc_method_handlers)
+            'ipam.NmapService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -59,7 +59,7 @@ class NmapService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/NmapService/ipScan',
+        return grpc.experimental.unary_unary(request, target, '/ipam.NmapService/ipScan',
             ipam__pb2.IpRequest.SerializeToString,
             ipam__pb2.IpResponse.FromString,
             options, channel_credentials,

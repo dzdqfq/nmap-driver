@@ -15,11 +15,11 @@ _sym_db = _symbol_database.Default()
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='ipam.proto',
-  package='',
+  package='ipam',
   syntax='proto3',
-  serialized_options=None,
+  serialized_options=b'\n\027net.skycloud.proto.ipamZ&github.com/sky-cloud-tec/proto/v1/ipam',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\nipam.proto\"\x17\n\tIpRequest\x12\n\n\x02ip\x18\n \x01(\t\"N\n\nIpResponse\x12\n\n\x02up\x18\n \x01(\t\x12\x0c\n\x04\x64own\x18\x14 \x01(\t\x12\r\n\x05total\x18\x1e \x01(\t\x12\x17\n\x06result\x18( \x03(\x0b\x32\x07.IpList\"0\n\x06IpList\x12\n\n\x02ip\x18\n \x01(\t\x12\x0e\n\x06status\x18\x14 \x01(\t\x12\n\n\x02os\x18\x1e \x01(\t22\n\x0bNmapService\x12#\n\x06ipScan\x12\n.IpRequest\x1a\x0b.IpResponse\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\nipam.proto\x12\x04ipam\"\x17\n\tIpRequest\x12\n\n\x02ip\x18\n \x01(\t\"S\n\nIpResponse\x12\n\n\x02up\x18\n \x01(\t\x12\x0c\n\x04\x64own\x18\x14 \x01(\t\x12\r\n\x05total\x18\x1e \x01(\t\x12\x1c\n\x06result\x18( \x03(\x0b\x32\x0c.ipam.IpList\"0\n\x06IpList\x12\n\n\x02ip\x18\n \x01(\t\x12\x0e\n\x06status\x18\x14 \x01(\t\x12\n\n\x02os\x18\x1e \x01(\t2<\n\x0bNmapService\x12-\n\x06ipScan\x12\x0f.ipam.IpRequest\x1a\x10.ipam.IpResponse\"\x00\x42\x41\n\x17net.skycloud.proto.ipamZ&github.com/sky-cloud-tec/proto/v1/ipamb\x06proto3'
 )
 
 
@@ -27,14 +27,14 @@ DESCRIPTOR = _descriptor.FileDescriptor(
 
 _IPREQUEST = _descriptor.Descriptor(
   name='IpRequest',
-  full_name='IpRequest',
+  full_name='ipam.IpRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='ip', full_name='IpRequest.ip', index=0,
+      name='ip', full_name='ipam.IpRequest.ip', index=0,
       number=10, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -52,42 +52,42 @@ _IPREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14,
-  serialized_end=37,
+  serialized_start=20,
+  serialized_end=43,
 )
 
 
 _IPRESPONSE = _descriptor.Descriptor(
   name='IpResponse',
-  full_name='IpResponse',
+  full_name='ipam.IpResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='up', full_name='IpResponse.up', index=0,
+      name='up', full_name='ipam.IpResponse.up', index=0,
       number=10, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='down', full_name='IpResponse.down', index=1,
+      name='down', full_name='ipam.IpResponse.down', index=1,
       number=20, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='total', full_name='IpResponse.total', index=2,
+      name='total', full_name='ipam.IpResponse.total', index=2,
       number=30, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='result', full_name='IpResponse.result', index=3,
+      name='result', full_name='ipam.IpResponse.result', index=3,
       number=40, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -105,35 +105,35 @@ _IPRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=39,
-  serialized_end=117,
+  serialized_start=45,
+  serialized_end=128,
 )
 
 
 _IPLIST = _descriptor.Descriptor(
   name='IpList',
-  full_name='IpList',
+  full_name='ipam.IpList',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='ip', full_name='IpList.ip', index=0,
+      name='ip', full_name='ipam.IpList.ip', index=0,
       number=10, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='status', full_name='IpList.status', index=1,
+      name='status', full_name='ipam.IpList.status', index=1,
       number=20, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='os', full_name='IpList.os', index=2,
+      name='os', full_name='ipam.IpList.os', index=2,
       number=30, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -151,8 +151,8 @@ _IPLIST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=119,
-  serialized_end=167,
+  serialized_start=130,
+  serialized_end=178,
 )
 
 _IPRESPONSE.fields_by_name['result'].message_type = _IPLIST
@@ -164,39 +164,40 @@ _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 IpRequest = _reflection.GeneratedProtocolMessageType('IpRequest', (_message.Message,), {
   'DESCRIPTOR' : _IPREQUEST,
   '__module__' : 'ipam_pb2'
-  # @@protoc_insertion_point(class_scope:IpRequest)
+  # @@protoc_insertion_point(class_scope:ipam.IpRequest)
   })
 _sym_db.RegisterMessage(IpRequest)
 
 IpResponse = _reflection.GeneratedProtocolMessageType('IpResponse', (_message.Message,), {
   'DESCRIPTOR' : _IPRESPONSE,
   '__module__' : 'ipam_pb2'
-  # @@protoc_insertion_point(class_scope:IpResponse)
+  # @@protoc_insertion_point(class_scope:ipam.IpResponse)
   })
 _sym_db.RegisterMessage(IpResponse)
 
 IpList = _reflection.GeneratedProtocolMessageType('IpList', (_message.Message,), {
   'DESCRIPTOR' : _IPLIST,
   '__module__' : 'ipam_pb2'
-  # @@protoc_insertion_point(class_scope:IpList)
+  # @@protoc_insertion_point(class_scope:ipam.IpList)
   })
 _sym_db.RegisterMessage(IpList)
 
 
+DESCRIPTOR._options = None
 
 _NMAPSERVICE = _descriptor.ServiceDescriptor(
   name='NmapService',
-  full_name='NmapService',
+  full_name='ipam.NmapService',
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=169,
-  serialized_end=219,
+  serialized_start=180,
+  serialized_end=240,
   methods=[
   _descriptor.MethodDescriptor(
     name='ipScan',
-    full_name='NmapService.ipScan',
+    full_name='ipam.NmapService.ipScan',
     index=0,
     containing_service=None,
     input_type=_IPREQUEST,
