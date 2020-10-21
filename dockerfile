@@ -7,5 +7,5 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /project/
 ENV PATH=$PATH:/project
 ENV PYTHONPATH /project
-CMD ["python3","/src/nmap-dirver.py"]
+CMD ["python3","/src/nmap-driver.py"]
 
