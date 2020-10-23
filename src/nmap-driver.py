@@ -17,14 +17,17 @@ logger = logging.getLogger('root')
 class NmapService(ipam_pb2_grpc.NmapServiceServicer):
     def ipScan(self,request,ctx):
         logger.info('execute nmap scan ip = %s' % request.ip)
-        res=nmapSearch(request.ip)	
+        res=nmapScan(request.ip)
         return res
-
-def nmapSearch(network_prefix):
+    def ipSearch(self,request,ctx):
+        logger.info('execute nmap scan ip = %s' % request.ip)
+        res=nmapSearch(request.ip)
+        return res
+def nmapScan(ip):
     try:
         nm = nmap.PortScanner()
         # 配置nmap扫描参数
-        scan_raw_result = nm.scan(hosts=network_prefix, arguments='-sS -O')
+        scan_raw_result = nm.scan(hosts=ip, arguments='-sS -O')
         nu=scan_raw_result['nmap']['scanstats']
         ipResponse = ipam_pb2.IpResponse(up=nu['uphosts'],down=nu['downhosts'],total=nu['totalhosts'])
         for host, detail in scan_raw_result['scan'].items():
@@ -34,10 +37,26 @@ def nmapSearch(network_prefix):
                 iplist.status='up'
                 iplist.os=detail['osmatch'][0]['name']
         return ipResponse
-    except Exception as e:
-        logger.error('scan %s error: %s' % (network_prefix,e))
+    except Exception as e: 
+        logger.error('scan %s error: %s' % (ip,e))
         raise e
-   	    
+             
+def nmapSearch(ip):
+    try:
+        nm = nmap.PortScanner()
+        # 配置nmap扫描参数
+        scan_raw_result = nm.scan(hosts=ip, arguments='-sS -O')
+        res=scan_raw_result['nmap']['scanstats']
+        ipDetail = ipam_pb2.IpDetail()
+        ipDetail.ip=ip
+        if len(scan_raw_result['scan']) != 0:
+            ipDetail.status=scan_raw_result['scan'][ip]['status']['state']
+            ipDetail.os=scan_raw_result['scan'][ip]['osmatch'][0]['name']
+        return ipDetail
+    except Exception as e:
+        logger.error('scan %s error: %s' % (ip,e))
+        raise e
+  	    
 def main():
     # 多线程服务器
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
