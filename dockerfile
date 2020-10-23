@@ -1,10 +1,9 @@
-FROM python:latest
-WORKDIR /nmap-driver/
+FROM hub.sky-cloud.net/cicd/nmap-python:latest
+MAINTAINER fangcong
 COPY . .
-RUN mkdir /root/log
 RUN python3 -m pip install --upgrade pip
-RUN pip3 install -r requirements.txt
-RUN apt-get update && apt-get install -y \
-	nmap 
-CMD ["python3","/nmap-driver/src/nmap-driver.py"]
-
+RUN pip3 install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+WORKDIR /project/
+ENV PATH=$PATH:/project
+ENV PYTHONPATH /project
+CMD ["python3","/src/nmap-driver.py"]
