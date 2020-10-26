@@ -5,7 +5,7 @@ pipeline {
     }
   }
   parameters {
-    string(name: 'distName', defaultValue: 'eventti' , description: '镜像名')
+    string(name: 'distName', defaultValue: 'nmap-driver' , description: '镜像名')
     string(name: 'distRepository', defaultValue: 'http://mvn.sky-cloud.net:8081/repository/sky-statics/nmap-driver/', description: '静态文件发布位置')
   }
   stages {
