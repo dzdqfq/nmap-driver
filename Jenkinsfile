@@ -23,6 +23,7 @@ pipeline {
               sh "docker login -u docker-image-builder -p sky-cloud@SZ2018 hub.sky-cloud.net ; docker build -t hub.sky-cloud.net/sky/${params.distName}:${distNumber}_build-${BUILD_NUMBER} . ; docker push hub.sky-cloud.net/sky/${params.distName}:${distNumber}_build-${BUILD_NUMBER}"  
               sh "sshpass -p r00tme ssh -o StrictHostKeyChecking=no root@192.168.1.146 \"docker pull hub.sky-cloud.net/sky/${params.distName}:${distNumber}_build-${BUILD_NUMBER} \""
               sh "sshpass -p r00tme ssh -o StrictHostKeyChecking=no root@192.168.1.146 \"kubectl set image deploy/nmap-driver nmap-driver=hub.sky-cloud.net/sky/${params.distName}:${distNumber}_build-${BUILD_NUMBER} -n sky\""
+
           }
         }
       }
