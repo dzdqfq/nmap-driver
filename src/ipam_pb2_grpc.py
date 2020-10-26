@@ -14,6 +14,11 @@ class NmapServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
+        self.ipSearch = channel.unary_unary(
+                '/ipam.NmapService/ipSearch',
+                request_serializer=ipam__pb2.IpRequest.SerializeToString,
+                response_deserializer=ipam__pb2.IpDetail.FromString,
+                )
         self.ipScan = channel.unary_unary(
                 '/ipam.NmapService/ipScan',
                 request_serializer=ipam__pb2.IpRequest.SerializeToString,
@@ -24,6 +29,12 @@ class NmapServiceStub(object):
 class NmapServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
+    def ipSearch(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def ipScan(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -33,6 +44,11 @@ class NmapServiceServicer(object):
 
 def add_NmapServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
+            'ipSearch': grpc.unary_unary_rpc_method_handler(
+                    servicer.ipSearch,
+                    request_deserializer=ipam__pb2.IpRequest.FromString,
+                    response_serializer=ipam__pb2.IpDetail.SerializeToString,
+            ),
             'ipScan': grpc.unary_unary_rpc_method_handler(
                     servicer.ipScan,
                     request_deserializer=ipam__pb2.IpRequest.FromString,
@@ -47,6 +63,23 @@ def add_NmapServiceServicer_to_server(servicer, server):
  # This class is part of an EXPERIMENTAL API.
 class NmapService(object):
     """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def ipSearch(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ipam.NmapService/ipSearch',
+            ipam__pb2.IpRequest.SerializeToString,
+            ipam__pb2.IpDetail.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def ipScan(request,

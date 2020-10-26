@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\027net.skycloud.proto.ipamZ&github.com/sky-cloud-tec/proto/v1/ipam',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\nipam.proto\x12\x04ipam\"\x17\n\tIpRequest\x12\n\n\x02ip\x18\n \x01(\t\"S\n\nIpResponse\x12\n\n\x02up\x18\n \x01(\t\x12\x0c\n\x04\x64own\x18\x14 \x01(\t\x12\r\n\x05total\x18\x1e \x01(\t\x12\x1c\n\x06result\x18( \x03(\x0b\x32\x0c.ipam.IpList\"0\n\x06IpList\x12\n\n\x02ip\x18\n \x01(\t\x12\x0e\n\x06status\x18\x14 \x01(\t\x12\n\n\x02os\x18\x1e \x01(\t2<\n\x0bNmapService\x12-\n\x06ipScan\x12\x0f.ipam.IpRequest\x1a\x10.ipam.IpResponse\"\x00\x42\x41\n\x17net.skycloud.proto.ipamZ&github.com/sky-cloud-tec/proto/v1/ipamb\x06proto3'
+  serialized_pb=b'\n\nipam.proto\x12\x04ipam\"\x17\n\tIpRequest\x12\n\n\x02ip\x18\n \x01(\t\"S\n\nIpResponse\x12\n\n\x02up\x18\n \x01(\t\x12\x0c\n\x04\x64own\x18\x14 \x01(\t\x12\r\n\x05total\x18\x1e \x01(\t\x12\x1c\n\x06result\x18( \x03(\x0b\x32\x0c.ipam.IpList\"0\n\x06IpList\x12\n\n\x02ip\x18\n \x01(\t\x12\x0e\n\x06status\x18\x14 \x01(\t\x12\n\n\x02os\x18\x1e \x01(\t\"2\n\x08IpDetail\x12\n\n\x02ip\x18\n \x01(\t\x12\x0e\n\x06status\x18\x14 \x01(\t\x12\n\n\x02os\x18\x1e \x01(\t2k\n\x0bNmapService\x12-\n\x08ipSearch\x12\x0f.ipam.IpRequest\x1a\x0e.ipam.IpDetail\"\x00\x12-\n\x06ipScan\x12\x0f.ipam.IpRequest\x1a\x10.ipam.IpResponse\"\x00\x42\x41\n\x17net.skycloud.proto.ipamZ&github.com/sky-cloud-tec/proto/v1/ipamb\x06proto3'
 )
 
 
@@ -155,10 +155,57 @@ _IPLIST = _descriptor.Descriptor(
   serialized_end=178,
 )
 
+
+_IPDETAIL = _descriptor.Descriptor(
+  name='IpDetail',
+  full_name='ipam.IpDetail',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='ip', full_name='ipam.IpDetail.ip', index=0,
+      number=10, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='status', full_name='ipam.IpDetail.status', index=1,
+      number=20, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='os', full_name='ipam.IpDetail.os', index=2,
+      number=30, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=180,
+  serialized_end=230,
+)
+
 _IPRESPONSE.fields_by_name['result'].message_type = _IPLIST
 DESCRIPTOR.message_types_by_name['IpRequest'] = _IPREQUEST
 DESCRIPTOR.message_types_by_name['IpResponse'] = _IPRESPONSE
 DESCRIPTOR.message_types_by_name['IpList'] = _IPLIST
+DESCRIPTOR.message_types_by_name['IpDetail'] = _IPDETAIL
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 IpRequest = _reflection.GeneratedProtocolMessageType('IpRequest', (_message.Message,), {
@@ -182,6 +229,13 @@ IpList = _reflection.GeneratedProtocolMessageType('IpList', (_message.Message,),
   })
 _sym_db.RegisterMessage(IpList)
 
+IpDetail = _reflection.GeneratedProtocolMessageType('IpDetail', (_message.Message,), {
+  'DESCRIPTOR' : _IPDETAIL,
+  '__module__' : 'ipam_pb2'
+  # @@protoc_insertion_point(class_scope:ipam.IpDetail)
+  })
+_sym_db.RegisterMessage(IpDetail)
+
 
 DESCRIPTOR._options = None
 
@@ -192,13 +246,23 @@ _NMAPSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=180,
-  serialized_end=240,
+  serialized_start=232,
+  serialized_end=339,
   methods=[
+  _descriptor.MethodDescriptor(
+    name='ipSearch',
+    full_name='ipam.NmapService.ipSearch',
+    index=0,
+    containing_service=None,
+    input_type=_IPREQUEST,
+    output_type=_IPDETAIL,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
   _descriptor.MethodDescriptor(
     name='ipScan',
     full_name='ipam.NmapService.ipScan',
-    index=0,
+    index=1,
     containing_service=None,
     input_type=_IPREQUEST,
     output_type=_IPRESPONSE,
