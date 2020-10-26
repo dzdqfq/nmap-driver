@@ -19,7 +19,6 @@ pipeline {
 		      sh "git rev-parse --short HEAD"
               def distNumber = sh(returnStdout: true, script: "echo $BRANCH_NAME | sed \"s/.*\\///g\"").trim()
               def PACKAGE_HOME = "${params.distRepository}${params.distName}.${distNumber}_build-${GIT_COMMIT_HASH}"
-              sh "curl -u admin:r00tme -O ${params.distRepository}${params.distName}.${distNumber}_build-${GIT_COMMIT_HASH}.tar.gz ; tar -zxvf ${params.distName}.${distNumber}_build-${GIT_COMMIT_HASH}.tar.gz"
               sh "docker login -u docker-image-builder -p sky-cloud@SZ2018 hub.sky-cloud.net ; docker build -t hub.sky-cloud.net/sky/${params.distName}:${distNumber}_build-${BUILD_NUMBER} . ; docker push hub.sky-cloud.net/sky/${params.distName}:${distNumber}_build-${BUILD_NUMBER}"  
               sh "sshpass -p r00tme ssh -o StrictHostKeyChecking=no root@192.168.1.146 \"docker pull hub.sky-cloud.net/sky/${params.distName}:${distNumber}_build-${BUILD_NUMBER} \""
               sh "sshpass -p r00tme ssh -o StrictHostKeyChecking=no root@192.168.1.146 \"kubectl set image deploy/nmap-driver nmap-driver=hub.sky-cloud.net/sky/${params.distName}:${distNumber}_build-${BUILD_NUMBER} -n sky\""
