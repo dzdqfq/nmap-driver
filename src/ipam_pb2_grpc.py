@@ -14,13 +14,13 @@ class NmapServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.ipSearch = channel.unary_unary(
-                '/ipam.NmapService/ipSearch',
+        self.IpSearch = channel.unary_unary(
+                '/ipam.NmapService/IpSearch',
                 request_serializer=ipam__pb2.IpRequest.SerializeToString,
                 response_deserializer=ipam__pb2.IpDetail.FromString,
                 )
-        self.ipScan = channel.unary_unary(
-                '/ipam.NmapService/ipScan',
+        self.IpScan = channel.stream_unary(
+                '/ipam.NmapService/IpScan',
                 request_serializer=ipam__pb2.IpRequest.SerializeToString,
                 response_deserializer=ipam__pb2.IpResponse.FromString,
                 )
@@ -29,13 +29,13 @@ class NmapServiceStub(object):
 class NmapServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def ipSearch(self, request, context):
+    def IpSearch(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def ipScan(self, request, context):
+    def IpScan(self, request_iterator, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -44,13 +44,13 @@ class NmapServiceServicer(object):
 
 def add_NmapServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'ipSearch': grpc.unary_unary_rpc_method_handler(
-                    servicer.ipSearch,
+            'IpSearch': grpc.unary_unary_rpc_method_handler(
+                    servicer.IpSearch,
                     request_deserializer=ipam__pb2.IpRequest.FromString,
                     response_serializer=ipam__pb2.IpDetail.SerializeToString,
             ),
-            'ipScan': grpc.unary_unary_rpc_method_handler(
-                    servicer.ipScan,
+            'IpScan': grpc.stream_unary_rpc_method_handler(
+                    servicer.IpScan,
                     request_deserializer=ipam__pb2.IpRequest.FromString,
                     response_serializer=ipam__pb2.IpResponse.SerializeToString,
             ),
@@ -65,7 +65,7 @@ class NmapService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def ipSearch(request,
+    def IpSearch(request,
             target,
             options=(),
             channel_credentials=None,
@@ -75,14 +75,14 @@ class NmapService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ipam.NmapService/ipSearch',
+        return grpc.experimental.unary_unary(request, target, '/ipam.NmapService/IpSearch',
             ipam__pb2.IpRequest.SerializeToString,
             ipam__pb2.IpDetail.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def ipScan(request,
+    def IpScan(request_iterator,
             target,
             options=(),
             channel_credentials=None,
@@ -92,7 +92,7 @@ class NmapService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ipam.NmapService/ipScan',
+        return grpc.experimental.stream_unary(request_iterator, target, '/ipam.NmapService/IpScan',
             ipam__pb2.IpRequest.SerializeToString,
             ipam__pb2.IpResponse.FromString,
             options, channel_credentials,

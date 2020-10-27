@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\027net.skycloud.proto.ipamZ&github.com/sky-cloud-tec/proto/v1/ipam',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\nipam.proto\x12\x04ipam\"\x17\n\tIpRequest\x12\n\n\x02ip\x18\n \x01(\t\"S\n\nIpResponse\x12\n\n\x02up\x18\n \x01(\t\x12\x0c\n\x04\x64own\x18\x14 \x01(\t\x12\r\n\x05total\x18\x1e \x01(\t\x12\x1c\n\x06result\x18( \x03(\x0b\x32\x0c.ipam.IpList\"0\n\x06IpList\x12\n\n\x02ip\x18\n \x01(\t\x12\x0e\n\x06status\x18\x14 \x01(\t\x12\n\n\x02os\x18\x1e \x01(\t\"2\n\x08IpDetail\x12\n\n\x02ip\x18\n \x01(\t\x12\x0e\n\x06status\x18\x14 \x01(\t\x12\n\n\x02os\x18\x1e \x01(\t2k\n\x0bNmapService\x12-\n\x08ipSearch\x12\x0f.ipam.IpRequest\x1a\x0e.ipam.IpDetail\"\x00\x12-\n\x06ipScan\x12\x0f.ipam.IpRequest\x1a\x10.ipam.IpResponse\"\x00\x42\x41\n\x17net.skycloud.proto.ipamZ&github.com/sky-cloud-tec/proto/v1/ipamb\x06proto3'
+  serialized_pb=b'\n\nipam.proto\x12\x04ipam\"\x17\n\tIpRequest\x12\n\n\x02ip\x18\n \x01(\t\"S\n\nIpResponse\x12\n\n\x02up\x18\n \x01(\t\x12\x0c\n\x04\x64own\x18\x14 \x01(\t\x12\r\n\x05total\x18\x1e \x01(\t\x12\x1c\n\x06result\x18( \x03(\x0b\x32\x0c.ipam.IpList\"0\n\x06IpList\x12\n\n\x02ip\x18\n \x01(\t\x12\x0e\n\x06status\x18\x14 \x01(\t\x12\n\n\x02os\x18\x1e \x01(\t\"2\n\x08IpDetail\x12\n\n\x02ip\x18\n \x01(\t\x12\x0e\n\x06status\x18\x14 \x01(\t\x12\n\n\x02os\x18\x1e \x01(\t2m\n\x0bNmapService\x12-\n\x08IpSearch\x12\x0f.ipam.IpRequest\x1a\x0e.ipam.IpDetail\"\x00\x12/\n\x06IpScan\x12\x0f.ipam.IpRequest\x1a\x10.ipam.IpResponse\"\x00(\x01\x42\x41\n\x17net.skycloud.proto.ipamZ&github.com/sky-cloud-tec/proto/v1/ipamb\x06proto3'
 )
 
 
@@ -247,11 +247,11 @@ _NMAPSERVICE = _descriptor.ServiceDescriptor(
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
   serialized_start=232,
-  serialized_end=339,
+  serialized_end=341,
   methods=[
   _descriptor.MethodDescriptor(
-    name='ipSearch',
-    full_name='ipam.NmapService.ipSearch',
+    name='IpSearch',
+    full_name='ipam.NmapService.IpSearch',
     index=0,
     containing_service=None,
     input_type=_IPREQUEST,
@@ -260,8 +260,8 @@ _NMAPSERVICE = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='ipScan',
-    full_name='ipam.NmapService.ipScan',
+    name='IpScan',
+    full_name='ipam.NmapService.IpScan',
     index=1,
     containing_service=None,
     input_type=_IPREQUEST,
