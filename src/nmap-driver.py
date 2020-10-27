@@ -15,11 +15,11 @@ logging.config.fileConfig(root_dir+"/config"+"/logging.conf")
 logger = logging.getLogger('root')
 
 class NmapService(ipam_pb2_grpc.NmapServiceServicer):
-    def ipScan(self,request,ctx):
+    def IpScan(self,request,ctx):
         logger.info('execute nmap scan ip = %s' % request.ip)
         res=nmapScan(request.ip)
         return res
-    def ipSearch(self,request,ctx):
+    def IpSearch(self,request,ctx):
         logger.info('execute nmap scan ip = %s' % request.ip)
         res=nmapSearch(request.ip)
         return res
