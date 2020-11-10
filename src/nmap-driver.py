@@ -7,36 +7,39 @@ import configparser
 import os
 from concurrent import futures
 from ipdb import set_trace
-import ipam_pb2,ipam_pb2_grpc 
+from ipam import ipam_pb2 as ipam_pb3,ipam_pb2_grpc as ipam_pb3_grpc
+from mgrpc import ipam_pb2,ipam_pb2_grpc 
 import logging.config
 
 root_dir =os.path.dirname(os.path.dirname(os.path.abspath(__file__)))#获取上一级目录
 logging.config.fileConfig(root_dir+"/config"+"/logging.conf")
 logger = logging.getLogger('root')
 
-class NmapService(ipam_pb2_grpc.NmapServiceServicer):
-    def IpScan(self,request,ctx):
-        logger.info('execute nmap scan ip = %s' % request.ip)
-        res=nmapScan(request.ip)
+class NmapService(ipam_pb2_grpc.DeviceServiceServicer):
+    def ListDeviceMsg(self,request_iterator,ctx):
+        ip = request_iterator.next().ip
+        logger.info('execute nmap scan ip = %s' % ip)
+        res=nmapScan(ip)
         return res
-    def IpSearch(self,request,ctx):
+    def GetDeviceMsg(self,request,ctx):
         logger.info('execute nmap scan ip = %s' % request.ip)
         res=nmapSearch(request.ip)
         return res
+
 def nmapScan(ip):
     try:
         nm = nmap.PortScanner()
         # 配置nmap扫描参数
         scan_raw_result = nm.scan(hosts=ip, arguments='-sS -O')
         nu=scan_raw_result['nmap']['scanstats']
-        ipResponse = ipam_pb2.IpResponse(up=nu['uphosts'],down=nu['downhosts'],total=nu['totalhosts'])
+        listDeviceMsgResponse = ipam_pb2.ListDeviceMsgResponse(up=nu['uphosts'],down=nu['downhosts'],total=nu['totalhosts'])
         for host, detail in scan_raw_result['scan'].items():
             if detail['status']['state'] == 'up':
-                iplist=ipResponse.result.add()
-                iplist.ip=host
-                iplist.status='up'
-                iplist.os=detail['osmatch'][0]['name']
-        return ipResponse
+                ipItem=listDeviceMsgResponse.ipam_items.add()
+                ipItem.ip=host
+                ipItem.status='up'
+                ipItem.os=detail['osmatch'][0]['name']
+        return listDeviceMsgResponse
     except Exception as e: 
         logger.error('scan %s error: %s' % (ip,e))
         raise e
@@ -47,12 +50,13 @@ def nmapSearch(ip):
         # 配置nmap扫描参数
         scan_raw_result = nm.scan(hosts=ip, arguments='-sS -O')
         res=scan_raw_result['nmap']['scanstats']
-        ipDetail = ipam_pb2.IpDetail()
-        ipDetail.ip=ip
+        ipItem = ipam_pb3.IpamItem()
+        ipItem.ip=ip
         if len(scan_raw_result['scan']) != 0:
-            ipDetail.status=scan_raw_result['scan'][ip]['status']['state']
-            ipDetail.os=scan_raw_result['scan'][ip]['osmatch'][0]['name']
-        return ipDetail
+            ipItem.status=scan_raw_result['scan'][ip]['status']['state']
+            ipItem.os=scan_raw_result['scan'][ip]['osmatch'][0]['name']
+        response = ipam_pb2.GetDeviceMsgResponse(ipam_item=ipItem)
+        return response
     except Exception as e:
         logger.error('scan %s error: %s' % (ip,e))
         raise e
@@ -63,7 +67,7 @@ def main():
     # 实例化 计算len的类
     servicer = NmapService()
     # 注册本地服务,方法ComputeServicer只有这个是变的
-    ipam_pb2_grpc.add_NmapServiceServicer_to_server(servicer, server)
+    ipam_pb2_grpc.add_DeviceServiceServicer_to_server(servicer, server)
     # 监听端口
     port = getPort()
     server.add_insecure_port('[::]:'+port)
