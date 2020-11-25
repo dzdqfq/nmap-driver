@@ -30,7 +30,7 @@ def nmapScan(ip):
     try:
         nm = nmap.PortScanner()
         # 配置nmap扫描参数
-        scan_raw_result = nm.scan(hosts=ip, arguments='-sS -O')
+        scan_raw_result = nm.scan(hosts=ip, arguments='-sS -F -O')
         nu=scan_raw_result['nmap']['scanstats']
         listDeviceMsgResponse = ipam_pb2.ListDeviceMsgResponse(up=nu['uphosts'],down=nu['downhosts'],total=nu['totalhosts'])
         for host, detail in scan_raw_result['scan'].items():
@@ -48,7 +48,7 @@ def nmapSearch(ip):
     try:
         nm = nmap.PortScanner()
         # 配置nmap扫描参数
-        scan_raw_result = nm.scan(hosts=ip, arguments='-sS -O')
+        scan_raw_result = nm.scan(hosts=ip, arguments='-sS -F -O')
         res=scan_raw_result['nmap']['scanstats']
         ipItem = ipam_pb3.IpamItem()
         ipItem.ip=ip
