@@ -38,7 +38,10 @@ def nmapScan(ip):
                 ipItem=listDeviceMsgResponse.ipam_items.add()
                 ipItem.ip=host
                 ipItem.status='up'
-                ipItem.os=detail['osmatch'][0]['name']
+                if len(detail['osmatch']) > 0:
+                    ipItem.os=detail['osmatch'][0]['name']
+                else:
+                    ipItem.os=''
         return listDeviceMsgResponse
     except Exception as e: 
         logger.error('scan %s error: %s' % (ip,e))
