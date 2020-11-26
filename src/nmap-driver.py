@@ -34,10 +34,9 @@ def nmapScan(ip):
         nu=scan_raw_result['nmap']['scanstats']
         listDeviceMsgResponse = ipam_pb2.ListDeviceMsgResponse(up=nu['uphosts'],down=nu['downhosts'],total=nu['totalhosts'])
         for host, detail in scan_raw_result['scan'].items():
-            if detail['status']['state'] == 'up':
                 ipItem=listDeviceMsgResponse.ipam_items.add()
                 ipItem.ip=host
-                ipItem.status='up'
+                ipItem.status=detail['status']['state']
                 if len(detail['osmatch']) > 0:
                     ipItem.os=detail['osmatch'][0]['name']
                 else:
