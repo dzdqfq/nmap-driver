@@ -32,7 +32,6 @@ def nmapScan(ip):
         # 配置nmap扫描参数
         arg = getScanArg()
         logger.info('scan arg = %s' % arg)
-        pdb.set_trace()
         scan_raw_result = nm.scan(hosts=ip, arguments='-sS -F -O')
         nu=scan_raw_result['nmap']['scanstats']
         listDeviceMsgResponse = ipam_pb2.ListDeviceMsgResponse(up=nu['uphosts'],down=nu['downhosts'],total=nu['totalhosts'])
