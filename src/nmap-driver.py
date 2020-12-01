@@ -10,7 +10,6 @@ from ipdb import set_trace
 from ipam import ipam_pb2 as ipam_pb3,ipam_pb2_grpc as ipam_pb3_grpc
 from mgrpc import ipam_pb2,ipam_pb2_grpc 
 import logging.config
-import pdb
 
 root_dir =os.path.dirname(os.path.dirname(os.path.abspath(__file__)))#获取上一级目录
 logging.config.fileConfig(root_dir+"/config"+"/logging.conf")
