@@ -10,6 +10,7 @@ from ipdb import set_trace
 from ipam import ipam_pb2 as ipam_pb3,ipam_pb2_grpc as ipam_pb3_grpc
 from mgrpc import ipam_pb2,ipam_pb2_grpc 
 import logging.config
+import pdb
 
 root_dir =os.path.dirname(os.path.dirname(os.path.abspath(__file__)))#获取上一级目录
 logging.config.fileConfig(root_dir+"/config"+"/logging.conf")
@@ -30,17 +31,24 @@ def nmapScan(ip):
     try:
         nm = nmap.PortScanner()
         # 配置nmap扫描参数
+        arg = getScanArg()
+        logger.info('scan arg = %s' % arg)
+        pdb.set_trace()
         scan_raw_result = nm.scan(hosts=ip, arguments='-sS -F -O')
         nu=scan_raw_result['nmap']['scanstats']
         listDeviceMsgResponse = ipam_pb2.ListDeviceMsgResponse(up=nu['uphosts'],down=nu['downhosts'],total=nu['totalhosts'])
         for host, detail in scan_raw_result['scan'].items():
-                ipItem=listDeviceMsgResponse.ipam_items.add()
-                ipItem.ip=host
-                ipItem.status=detail['status']['state']
-                if len(detail['osmatch']) > 0:
-                    ipItem.os=detail['osmatch'][0]['name']
-                else:
-                    ipItem.os=''
+            ipItem=listDeviceMsgResponse.ipam_items.add()
+            ipItem.ip=host
+            ipItem.status=detail['status']['state']
+            if len(detail['osmatch']) > 0:
+                ipItem.os=detail['osmatch'][0]['name']
+            else:
+                ipItem.os=''
+            if detail['addresses'].has_key('mac'):
+                ipamItem.mac=detail['addresses']['mac']
+            else:
+                ipItem.mac='';    
         return listDeviceMsgResponse
     except Exception as e: 
         logger.error('scan %s error: %s' % (ip,e))
@@ -50,6 +58,8 @@ def nmapSearch(ip):
     try:
         nm = nmap.PortScanner()
         # 配置nmap扫描参数
+        arg = getScanArg()
+        logger.info('scan arg = %s' % arg)
         scan_raw_result = nm.scan(hosts=ip, arguments='-sS -F -O')
         res=scan_raw_result['nmap']['scanstats']
         ipItem = ipam_pb3.IpamItem()
@@ -85,8 +95,12 @@ def getPort():
     port = cf.get("Nmap-Driver", "port")
     return port
 
+def getScanArg():
+    cf = configparser.ConfigParser()
+    cf.read(root_dir+"/config"+"/config.ini")
+    arg = cf.get("Nmap-Driver", "scan_arg")
+    return arg
 
 if __name__ == '__main__':
     main()
-
 

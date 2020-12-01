@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\027net.skycloud.proto.ipamZ&github.com/sky-cloud-tec/proto/v1/ipam',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0fipam/ipam.proto\x12\x04ipam\"2\n\x08IpamItem\x12\n\n\x02ip\x18\n \x01(\t\x12\x0e\n\x06status\x18\x14 \x01(\t\x12\n\n\x02os\x18\x1e \x01(\tBA\n\x17net.skycloud.proto.ipamZ&github.com/sky-cloud-tec/proto/v1/ipamb\x06proto3'
+  serialized_pb=b'\n\x0fipam/ipam.proto\x12\x04ipam\"?\n\x08IpamItem\x12\n\n\x02ip\x18\n \x01(\t\x12\x0e\n\x06status\x18\x14 \x01(\t\x12\n\n\x02os\x18\x1e \x01(\t\x12\x0b\n\x03mac\x18( \x01(\tBA\n\x17net.skycloud.proto.ipamZ&github.com/sky-cloud-tec/proto/v1/ipamb\x06proto3'
 )
 
 
@@ -54,6 +54,13 @@ _IPAMITEM = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='mac', full_name='ipam.IpamItem.mac', index=3,
+      number=40, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -67,7 +74,7 @@ _IPAMITEM = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=25,
-  serialized_end=75,
+  serialized_end=88,
 )
 
 DESCRIPTOR.message_types_by_name['IpamItem'] = _IPAMITEM
