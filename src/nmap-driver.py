@@ -41,6 +41,9 @@ def nmapScan(ip):
                 ipItem.os=detail['osmatch'][0]['name']
             else:
                 ipItem.os=''
+            print('mac' in detail['addresses'])
+            print(host)
+            print(detail['addresses'])
             if 'mac' in detail['addresses']:
                 ipamItem.mac=detail['addresses']['mac']
             else:
