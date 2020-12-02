@@ -41,7 +41,7 @@ def nmapScan(ip):
                 ipItem.os=detail['osmatch'][0]['name']
             else:
                 ipItem.os=''
-            if detail['addresses'].has_key('mac'):
+            if 'mac' in detail['addresses']:
                 ipamItem.mac=detail['addresses']['mac']
             else:
                 ipItem.mac='';    
