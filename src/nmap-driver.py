@@ -41,11 +41,8 @@ def nmapScan(ip):
                 ipItem.os=detail['osmatch'][0]['name']
             else:
                 ipItem.os=''
-            logger.info('mac' in detail['addresses'])
-            logger.info(host)
-            logger.info(detail['addresses'])
             if 'mac' in detail['addresses']:
-                ipamItem.mac=detail['addresses']['mac']
+                ipItem.mac=detail['addresses']['mac']
             else:
                 ipItem.mac='';    
         return listDeviceMsgResponse
