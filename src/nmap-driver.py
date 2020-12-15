@@ -10,6 +10,7 @@ from ipdb import set_trace
 from ipam import ipam_pb2 as ipam_pb3,ipam_pb2_grpc as ipam_pb3_grpc
 from mgrpc import ipam_pb2,ipam_pb2_grpc 
 import logging.config
+import re
 
 root_dir =os.path.dirname(os.path.dirname(os.path.abspath(__file__)))#获取上一级目录
 logging.config.fileConfig(root_dir+"/config"+"/logging.conf")
@@ -25,7 +26,12 @@ class NmapService(ipam_pb2_grpc.DeviceServiceServicer):
         logger.info('execute nmap scan ip = %s' % request.ip)
         res=nmapSearch(request.ip)
         return res
-
+    
+    def GetDeviceSubnet(self,request,ctx):
+        logger.info('execute get device subnet')
+        res=getDeviceSubnet()
+        return res
+    
 def nmapScan(ip):
     try:
         nm = nmap.PortScanner()
@@ -66,7 +72,18 @@ def nmapSearch(ip):
     except Exception as e:
         logger.error('scan %s error: %s' % (ip,e))
         raise e
-  	    
+  	 
+def getDeviceSubnet():
+    try:
+        val = str(os.popen("ip r|awk '{print $1}'|grep /").read())
+        # 配置nmap扫描参数
+        response = ipam_pb2.GetDeviceSubnetResponse()
+        response.subnets.extend(re.split('\n',val.strip()))
+        return response
+    except Exception as e:
+        logger.error('get subnet error: %s' % (e))
+        raise e    
+    
 def main():
     # 多线程服务器
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
@@ -91,4 +108,5 @@ def getPort():
 
 if __name__ == '__main__':
     main()
+
 

@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\026net.skycloud.proto.rpcZ%github.com/sky-cloud-tec/proto/v1/rpc',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x10mgrpc/ipam.proto\x12\x03rpc\x1a\x0fipam/ipam.proto\"\x19\n\x0b\x42yIpRequest\x12\n\n\x02ip\x18\n \x01(\t\"9\n\x14GetDeviceMsgResponse\x12!\n\tipam_item\x18\n \x01(\x0b\x32\x0e.ipam.IpamItem\"d\n\x15ListDeviceMsgResponse\x12\n\n\x02up\x18\n \x01(\t\x12\x0c\n\x04\x64own\x18\x14 \x01(\t\x12\r\n\x05total\x18\x1e \x01(\t\x12\"\n\nipam_items\x18( \x03(\x0b\x32\x0e.ipam.IpamItem2\x91\x01\n\rDeviceService\x12=\n\x0cGetDeviceMsg\x12\x10.rpc.ByIpRequest\x1a\x19.rpc.GetDeviceMsgResponse\"\x00\x12\x41\n\rListDeviceMsg\x12\x10.rpc.ByIpRequest\x1a\x1a.rpc.ListDeviceMsgResponse\"\x00(\x01\x42?\n\x16net.skycloud.proto.rpcZ%github.com/sky-cloud-tec/proto/v1/rpcb\x06proto3'
+  serialized_pb=b'\n\x10mgrpc/ipam.proto\x12\x03rpc\x1a\x0fipam/ipam.proto\"\x19\n\x0b\x42yIpRequest\x12\n\n\x02ip\x18\n \x01(\t\"\x10\n\x0e\x42yEmptyRequest\"9\n\x14GetDeviceMsgResponse\x12!\n\tipam_item\x18\n \x01(\x0b\x32\x0e.ipam.IpamItem\"d\n\x15ListDeviceMsgResponse\x12\n\n\x02up\x18\n \x01(\t\x12\x0c\n\x04\x64own\x18\x14 \x01(\t\x12\r\n\x05total\x18\x1e \x01(\t\x12\"\n\nipam_items\x18( \x03(\x0b\x32\x0e.ipam.IpamItem\"*\n\x17GetDeviceSubnetResponse\x12\x0f\n\x07subnets\x18\n \x03(\t2\xd9\x01\n\rDeviceService\x12=\n\x0cGetDeviceMsg\x12\x10.rpc.ByIpRequest\x1a\x19.rpc.GetDeviceMsgResponse\"\x00\x12\x41\n\rListDeviceMsg\x12\x10.rpc.ByIpRequest\x1a\x1a.rpc.ListDeviceMsgResponse\"\x00(\x01\x12\x46\n\x0fGetDeviceSubnet\x12\x13.rpc.ByEmptyRequest\x1a\x1c.rpc.GetDeviceSubnetResponse\"\x00\x42?\n\x16net.skycloud.proto.rpcZ%github.com/sky-cloud-tec/proto/v1/rpcb\x06proto3'
   ,
   dependencies=[ipam_dot_ipam__pb2.DESCRIPTOR,])
 
@@ -59,6 +59,31 @@ _BYIPREQUEST = _descriptor.Descriptor(
 )
 
 
+_BYEMPTYREQUEST = _descriptor.Descriptor(
+  name='ByEmptyRequest',
+  full_name='rpc.ByEmptyRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=69,
+  serialized_end=85,
+)
+
+
 _GETDEVICEMSGRESPONSE = _descriptor.Descriptor(
   name='GetDeviceMsgResponse',
   full_name='rpc.GetDeviceMsgResponse',
@@ -86,8 +111,8 @@ _GETDEVICEMSGRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=69,
-  serialized_end=126,
+  serialized_start=87,
+  serialized_end=144,
 )
 
 
@@ -139,15 +164,49 @@ _LISTDEVICEMSGRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=128,
-  serialized_end=228,
+  serialized_start=146,
+  serialized_end=246,
+)
+
+
+_GETDEVICESUBNETRESPONSE = _descriptor.Descriptor(
+  name='GetDeviceSubnetResponse',
+  full_name='rpc.GetDeviceSubnetResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='subnets', full_name='rpc.GetDeviceSubnetResponse.subnets', index=0,
+      number=10, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=248,
+  serialized_end=290,
 )
 
 _GETDEVICEMSGRESPONSE.fields_by_name['ipam_item'].message_type = ipam_dot_ipam__pb2._IPAMITEM
 _LISTDEVICEMSGRESPONSE.fields_by_name['ipam_items'].message_type = ipam_dot_ipam__pb2._IPAMITEM
 DESCRIPTOR.message_types_by_name['ByIpRequest'] = _BYIPREQUEST
+DESCRIPTOR.message_types_by_name['ByEmptyRequest'] = _BYEMPTYREQUEST
 DESCRIPTOR.message_types_by_name['GetDeviceMsgResponse'] = _GETDEVICEMSGRESPONSE
 DESCRIPTOR.message_types_by_name['ListDeviceMsgResponse'] = _LISTDEVICEMSGRESPONSE
+DESCRIPTOR.message_types_by_name['GetDeviceSubnetResponse'] = _GETDEVICESUBNETRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 ByIpRequest = _reflection.GeneratedProtocolMessageType('ByIpRequest', (_message.Message,), {
@@ -156,6 +215,13 @@ ByIpRequest = _reflection.GeneratedProtocolMessageType('ByIpRequest', (_message.
   # @@protoc_insertion_point(class_scope:rpc.ByIpRequest)
   })
 _sym_db.RegisterMessage(ByIpRequest)
+
+ByEmptyRequest = _reflection.GeneratedProtocolMessageType('ByEmptyRequest', (_message.Message,), {
+  'DESCRIPTOR' : _BYEMPTYREQUEST,
+  '__module__' : 'mgrpc.ipam_pb2'
+  # @@protoc_insertion_point(class_scope:rpc.ByEmptyRequest)
+  })
+_sym_db.RegisterMessage(ByEmptyRequest)
 
 GetDeviceMsgResponse = _reflection.GeneratedProtocolMessageType('GetDeviceMsgResponse', (_message.Message,), {
   'DESCRIPTOR' : _GETDEVICEMSGRESPONSE,
@@ -171,6 +237,13 @@ ListDeviceMsgResponse = _reflection.GeneratedProtocolMessageType('ListDeviceMsgR
   })
 _sym_db.RegisterMessage(ListDeviceMsgResponse)
 
+GetDeviceSubnetResponse = _reflection.GeneratedProtocolMessageType('GetDeviceSubnetResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETDEVICESUBNETRESPONSE,
+  '__module__' : 'mgrpc.ipam_pb2'
+  # @@protoc_insertion_point(class_scope:rpc.GetDeviceSubnetResponse)
+  })
+_sym_db.RegisterMessage(GetDeviceSubnetResponse)
+
 
 DESCRIPTOR._options = None
 
@@ -181,8 +254,8 @@ _DEVICESERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=231,
-  serialized_end=376,
+  serialized_start=293,
+  serialized_end=510,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetDeviceMsg',
@@ -201,6 +274,16 @@ _DEVICESERVICE = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_BYIPREQUEST,
     output_type=_LISTDEVICEMSGRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetDeviceSubnet',
+    full_name='rpc.DeviceService.GetDeviceSubnet',
+    index=2,
+    containing_service=None,
+    input_type=_BYEMPTYREQUEST,
+    output_type=_GETDEVICESUBNETRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
