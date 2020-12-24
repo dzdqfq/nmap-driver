@@ -43,7 +43,11 @@ def getMachinePort():
     port = cf.get("Nmap-Driver", "port")
     return port
 
-secret_key="privateKey"
+def getSecretKey():
+    cf = configparser.ConfigParser()
+    cf.read(root_dir+"/config"+"/config.ini") 
+    key = cf.get("Nmap-Driver", "secret_key")
+    return key
 
 def getToken(name):
 # 调用jwt库,生成json web token
@@ -51,7 +55,7 @@ def getToken(name):
     token_dict['port']=getMachinePort()
     token_dict['name']=name
     jwt_token = jwt.encode(token_dict,  # payload, 有效载体
-                       secret_key,  # 进行加密签名的密钥
+                       getSecretKey(),  # 进行加密签名的密钥
                        algorithm="HS256",  # 指明签名算法方式, 默认也是HS256
                        headers=headers  # json web token 数据结构包含两部分, payload(有效载体), headers(标头)
                        ).decode('utf8')  # python3 编码后得到 bytes, 再进行解码(指明解码的格式), 得到一个str

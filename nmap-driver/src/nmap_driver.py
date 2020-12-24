@@ -21,7 +21,6 @@ import jwt
 root_dir =os.path.dirname(os.path.dirname(os.path.abspath(__file__)))#获取上一级目录
 logging.config.fileConfig(root_dir+"/config"+"/logging.conf")
 logger = logging.getLogger('root')
-privateKey="privateKey"
 
 class NmapService(ipam_pb2_grpc.DeviceServiceServicer):
     def ListDeviceMsg(self,request_iterator,ctx):
@@ -121,7 +120,7 @@ def main():
 def registerAgent(host,port,name):
     token = jwt_token.getToken(name)
     nmapClient=NmapClient()
-    nmapClient.registerAgent(token,host,port,name)
+    nmapClient.registerAgent(jwt_token.getSecretKey(),host,port,name)
 
 def getPort():
     cf = configparser.ConfigParser()
@@ -131,11 +130,12 @@ def getPort():
 
 def parseToken():
     if len(sys.argv)<2:
-        logger.error('need token to start nmap-driver')
-        raise BaseException("need token to start nmap-driver")
+        logger.warning('need token to start nmap-driver')
+        return
     try:
         token=sys.argv[1]
-        data = jwt.decode(token, privateKey, algorithms=['HS256'])
+        key = jwt_token.getSecretKey()
+        data = jwt.decode(token, key, algorithms=['HS256'])
         logger.info("parse token data =" % data)
     except Exception as e:
         logger.error('token is not right')

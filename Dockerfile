@@ -5,4 +5,4 @@ RUN pip3 install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com
 WORKDIR /project/
 ENV PATH=$PATH:/project
 ENV PYTHONPATH /project
-CMD ["python3","/src/nmap-driver.py"]
+CMD ["python3","/src/nmap_driver.py"]
