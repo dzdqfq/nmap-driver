@@ -37,3 +37,4 @@ Twisted==20.3.0
 txaio==20.4.1
 wcwidth==0.2.5
 zope.interface==5.1.2
+PyJWT==1.7.1

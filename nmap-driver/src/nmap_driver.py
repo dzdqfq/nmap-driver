@@ -8,9 +8,15 @@ import os
 from concurrent import futures
 from ipdb import set_trace
 from ipam import ipam_pb2 as ipam_pb3,ipam_pb2_grpc as ipam_pb3_grpc
+from common import msgs_pb2 as msgs_pb3,msgs_pb2_grpc as msgs_pb3_grpc
 from mgrpc import ipam_pb2,ipam_pb2_grpc 
+import mgrpc.dom_pb2
+import mgrpc.dom_pb2_grpc 
 import logging.config
 import re
+import jwt_token
+import sys
+import jwt
 
 root_dir =os.path.dirname(os.path.dirname(os.path.abspath(__file__)))#获取上一级目录
 logging.config.fileConfig(root_dir+"/config"+"/logging.conf")
@@ -26,12 +32,23 @@ class NmapService(ipam_pb2_grpc.DeviceServiceServicer):
         logger.info('execute nmap scan ip = %s' % request.ip)
         res=nmapSearch(request.ip)
         return res
-    
     def GetDeviceSubnet(self,request,ctx):
         logger.info('execute get device subnet')
         res=getDeviceSubnet()
         return res
-    
+
+class NmapClient():
+    def registerAgent(self,token,host,port,name):
+        try:
+            with grpc.insecure_channel("{0}:{1}".format(host, port)) as channel:
+                client = mgrpc.dom_pb2_grpc.AgentServiceStub(channel=channel)
+                logger.info('targetIp = %s targetPort = %s name = %s start register agent please waite' % (host, port, name))
+                response = client.RegisterAgent(mgrpc.dom_pb2.WithNameIpPortTokenRequest(token=token))
+                logger.info('register agent success')
+        except Exception as e:
+            logger.error('register agent fail')
+            raise e
+
 def nmapScan(ip):
     try:
         nm = nmap.PortScanner()
@@ -100,13 +117,33 @@ def main():
     server.wait_for_termination()
     logger.info('nmap-driver server stop port = $s' % port)
 
+def registerAgent(host,port,name):
+    token = jwt_token.getToken(name)
+    nmapClient=NmapClient()
+    nmapClient.registerAgent(jwt_token.getSecretKey(),host,port,name)
+
 def getPort():
     cf = configparser.ConfigParser()
     cf.read(root_dir+"/config"+"/config.ini") 
     port = cf.get("Nmap-Driver", "port")
     return port
 
+def parseToken():
+    if len(sys.argv)<2:
+        logger.warning('need token to start nmap-driver')
+        return
+    try:
+        token=sys.argv[1]
+        key = jwt_token.getSecretKey()
+        data = jwt.decode(token, key, algorithms=['HS256'])
+        logger.info("parse token data =" % data)
+    except Exception as e:
+        logger.error('token is not right')
+        raise BaseException("token is not right")
+    registerAgent(data['host'],data['port'],data['name'])
+
 if __name__ == '__main__':
+    parseToken()
     main()
 
 
