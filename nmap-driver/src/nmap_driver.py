@@ -120,7 +120,7 @@ def main():
 def registerAgent(host,port,name):
     token = jwt_token.getToken(name)
     nmapClient=NmapClient()
-    nmapClient.registerAgent(jwt_token.getSecretKey(),host,port,name)
+    nmapClient.registerAgent(jwt_token.getToken(name),host,port,name)
 
 def getPort():
     cf = configparser.ConfigParser()
@@ -140,7 +140,7 @@ def parseToken():
     except Exception as e:
         logger.error('token is not right')
         raise BaseException("token is not right")
-    registerAgent(data['host'],data['port'],data['name'])
+    registerAgent(data['host'].strip(),data['port'],data['name'])
 
 if __name__ == '__main__':
     parseToken()

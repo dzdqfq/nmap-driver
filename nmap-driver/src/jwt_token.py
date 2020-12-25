@@ -35,19 +35,19 @@ headers = {
 # crit: 字符串数组，包含声明的名称，用作实现定义的扩展，必须由 this->JWT的解析器处理。不常见。
 def getMachineIp():
     val = str(os.popen("hostname -I | awk '{print $1}'").read())
-    return val
+    return val.strip()
 
 def getMachinePort():
     cf = configparser.ConfigParser()
     cf.read(root_dir+"/config"+"/config.ini")
     port = cf.get("Nmap-Driver", "port")
-    return port
+    return port.strip()
 
 def getSecretKey():
     cf = configparser.ConfigParser()
     cf.read(root_dir+"/config"+"/config.ini") 
     key = cf.get("Nmap-Driver", "secret_key")
-    return key
+    return key.strip()
 
 def getToken(name):
 # 调用jwt库,生成json web token

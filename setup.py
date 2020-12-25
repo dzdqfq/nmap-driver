@@ -13,7 +13,7 @@ class CustomInstall(install):
 
 setup(
     name = 'nmap-driver',
-    version = '0.1.2',
+    version = '0.1.7',
     keywords='wx',
     description = 'a library for nmap scan',
     license = 'MIT License',
