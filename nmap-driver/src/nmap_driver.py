@@ -19,6 +19,9 @@ import sys
 import jwt
 
 root_dir =os.path.dirname(os.path.dirname(os.path.abspath(__file__)))#获取上一级目录
+log_dir='/root/log/'
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)
 logging.config.fileConfig(root_dir+"/config"+"/logging.conf")
 logger = logging.getLogger('root')
 
