@@ -1,4 +1,4 @@
-FROM hub.sky-cloud.net/cicd/nmap-python:latest
+FROM hub.sky-cloud.net/cicd/nmap-python:v2
 MAINTAINER fangcong
 COPY . .
 RUN pip3 install --upgrade pip
